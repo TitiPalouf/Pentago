@@ -6,54 +6,57 @@ package game;
  * @author Someone
  */
 public class Pawn {
-	/**
-	 * Owner of the Pawn ( -1 : No Owner; 0~n : Player n°0~n )
-	 */
-	protected int owner;
-	protected int nbPlayers;
+    /**
+     * Owner of the Pawn ( -1 : No Owner; 0~n : Player n°0~n )
+     */
+    protected int owner;
 
-	/**
-	 * Pawn Constructor, initialize the owner to 0
-	 */
-	public Pawn(int _nbPlayers) {
-		this.owner = -1;
-		this.nbPlayers = _nbPlayers;
-	}
+    /**
+     * Pawn Constructor, initialize the owner to 0
+     */
+    public Pawn() {
+        this.owner = -1;
+    }
 
-	/**
-	 * Get Owner of the Pawn
-	 *
-	 * @return owner Owner of the Pawn
-	 */
-	public int getOwner() {
-		return owner;
-	}
+    /**
+     * Get Owner of the Pawn
+     * 
+     * @return owner Owner of the Pawn
+     */
+    public int getOwner() {
+        return owner;
+    }
 
-	/**
-	 * Set Owner of the Pawn
-	 * 
-	 * @param owner Owner of the Pawn
-	 */
-	public void setOwner(int _owner) {
-		if(_owner >= nbPlayers)
-			owner = nbPlayers;
-		else
-			owner = _owner;
-	}
+    /**
+     * Set Owner of the Pawn
+     * 
+     * @param owner
+     *            Owner of the Pawn
+     */
+    public void setOwner(int _owner) {
+        if (_owner >= 2)
+            owner = 2;
+        else
+            owner = _owner;
+    }
 
-	/**
-	 * Test of Pawn Class
-	 */
-	public static void main(String[] args) {
-		System.out.println("Test of Pawn Class");
-		
-		Pawn test = new Pawn(5);
-		
-		System.out.println(test.owner);
-		
-		test.setOwner(7);
+    public boolean isEmpty() {
+        return owner == -1;
+    }
 
-		System.out.println(test.owner);
-	}
+    /**
+     * Test of Pawn Class
+     */
+    public static void main(String[] args) {
+        System.out.println("Test of Pawn Class");
+
+        Pawn test = new Pawn();
+
+        System.out.println(test.owner);
+
+        test.setOwner(7);
+
+        System.out.println(test.owner);
+    }
 
 }
