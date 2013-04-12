@@ -9,22 +9,22 @@ public class Pawn {
     /**
      * Owner of the Pawn ( -1 : No Owner; 0~n : Player n°0~n )
      */
-    protected int owner;
-
+    protected Color color;
+    
     /**
      * Pawn Constructor, initialize the owner to 0
      */
-    public Pawn() {
-        this.owner = -1;
-    }
+    public Pawn(Color _color) {
+        color = _color;
+    }    
 
     /**
      * Get Owner of the Pawn
      * 
      * @return owner Owner of the Pawn
      */
-    public int getOwner() {
-        return owner;
+    public Color getColor() {
+        return color;
     }
 
     /**
@@ -33,15 +33,15 @@ public class Pawn {
      * @param owner
      *            Owner of the Pawn
      */
-    public void setOwner(int _owner) {
-        if (_owner >= 2)
-            owner = 2;
-        else
-            owner = _owner;
+    public void setColor(Color _color) {
+        color = _color;
     }
 
+    /**
+     * @return
+     */
     public boolean isEmpty() {
-        return owner == -1;
+        return color == Color.empty;
     }
 
     /**
@@ -50,13 +50,15 @@ public class Pawn {
     public static void main(String[] args) {
         System.out.println("Test of Pawn Class");
 
-        Pawn test = new Pawn();
+        Pawn test = new Pawn(Color.empty);
 
-        System.out.println(test.owner);
+        System.out.println(test.getColor());
+        
+        System.out.println("Set this pawn to blue");
+        
+        test.setColor(Color.blue);
 
-        test.setOwner(7);
-
-        System.out.println(test.owner);
+        System.out.println(test.getColor());
     }
 
 }

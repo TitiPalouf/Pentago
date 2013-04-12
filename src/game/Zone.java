@@ -11,18 +11,23 @@ public class Zone {
      * Fields in the Zone
      */
     protected Field field[][];
+    int nbFields = 2;
 
     /**
      * Constructor of Zone Class
      */
     public Zone() {
-        int nbFields = 2;
-
         field = new Field[nbFields][nbFields];
 
         for (int i = 0; i < nbFields; i++)
             for (int j = 0; j < nbFields; j++)
                 field[i][j] = new Field();
+    }
+    
+    public void clear() {
+        for (int i = 0; i < nbFields; i++)
+            for (int j = 0; j < nbFields; j++)
+                field[i][j].clear();
     }
 
     public Field getField(int _i, int _j) {

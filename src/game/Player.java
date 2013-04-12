@@ -9,7 +9,7 @@ public class Player {
      * Name of the Player
      */
     protected String name = null;
-    protected static int number;
+    protected Color color;
 
     /**
      * @return
@@ -30,8 +30,8 @@ public class Player {
      * 
      * @return
      */
-    public int getNumber() {
-        return number;
+    public Color getColor() {
+        return color;
     }
 
     /**
@@ -39,8 +39,8 @@ public class Player {
      * 
      * @param _number
      */
-    public void setNumber(int _number) {
-        number = _number;
+    public void setColor(Color _color) {
+        color = _color;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Player {
      * @param _number
      *            The number of the player
      */
-    public Player() {
+    public Player(Color _color) {
         double n = (Math.random() * 10);
 
         switch ((int) n) {
@@ -77,7 +77,7 @@ public class Player {
             break;
         }
 
-        number++;
+        color = _color;
     }
 
     /**
@@ -87,12 +87,14 @@ public class Player {
      *            Main Arguments
      */
     public static void main(String[] args) {
-        Player[] test = new Player[5];
+        Player[] test = new Player[2];
 
-        for (int i = 0; i < 5; i++) {
-            test[i] = new Player();
-            System.out.println(test[i].getName());
-            System.out.println(test[i].getNumber());
-        }
+        test[0] = new Player(Color.red);
+        System.out.println(test[0].getName());
+        System.out.println(test[0].getColor());
+        
+        test[1] = new Player(Color.blue);
+        System.out.println(test[0].getName());
+        System.out.println(test[0].getColor());
     }
 }

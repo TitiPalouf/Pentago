@@ -16,10 +16,13 @@ public class Field {
 	 */
     public Field() {
         pawn = new Pawn[3][3];
-
+        clear();
+    }
+    
+    public void clear() {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                pawn[i][j] = new Pawn();
+                pawn[i][j] = new Pawn(Color.empty);
     }
 
     /**
@@ -51,13 +54,19 @@ public class Field {
      * @param args
      */
     public static void main(String[] args) {
+        System.out.println(">> Test of Field Class");
+        
+        System.out.println(">> We create a new Field");
+        
         Field test = new Field();
+        
+        System.out.println(">> Color of Pawn[5][2] : " + test.getPawn(5, 2).getColor());
 
-        System.out.println(test.getPawn(5, 2).getOwner());
-
+        System.out.println(">> BarrelRoll to the right of the Field");
+        
         test.barrelRoll(Direction.right);
 
-        System.out.println(test.getPawn(5, 2).getOwner());
+        System.out.println(">> Color of Pawn[5][2] : " + test.getPawn(5, 2).getColor());
     }
 
 }

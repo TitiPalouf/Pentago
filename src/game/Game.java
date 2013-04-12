@@ -11,17 +11,17 @@ public class Game {
     /**
      * Zone, contains the Fields and the Pawns.
      */
-    Zone zone = null;
+    protected Zone zone = null;
 
     /**
      * Array of Players, contains the Players.
      */
-    Player[] player = null;
+    protected Player[] player = null;
 
     /**
      * Current Player, contains a reference to the current Player
      */
-    Player current = null;
+    protected Player current = null;
 
     /**
      * Constructor of Game Class. Do the following :
@@ -33,17 +33,20 @@ public class Game {
      * @param options
      *            Options of the Game, to initialize members with right numbers.
      */
-    public Game(Options options) {
-        int nbPlayers = 2;
-
+    public Game() {
         zone = new Zone();
 
-        player = new Player[nbPlayers];
+        player = new Player[2];
 
-        for (int i = 0; i < nbPlayers; i++)
-            player[i] = new Player();
+        player[0] = new Player(Color.red);
+        
+        player[1] = new Player(Color.blue);
 
         current = player[0];
+    }
+
+    public void clear() {
+        zone.clear();
     }
 
     public Pawn getPawn(int _i, int _j) {
@@ -59,6 +62,8 @@ public class Game {
         String ret = new String();
 
         ret += "Current Player : " + current.getName() + System.lineSeparator();
+
+        ret += "Player Color : " + current.getColor();
 
         ret += System.lineSeparator();
 
@@ -104,10 +109,20 @@ public class Game {
                 if (j % nbPawns == 0 && j != 0)
                     ret += "  ";
 
-                if (getPawn(j, i).owner + 1 < 10)
-                    ret += "|     " + (getPawn(j, i).owner + 1) + " |";
-                else
-                    ret += "|     " + (getPawn(j, i).owner + 1) + " |";
+                switch (getPawn(j, i).getColor()) {
+                case red:
+                    ret += "|  " + getPawn(j, i).getColor() + "  |";
+                    break;
+                case blue:
+                    ret += "|  " + getPawn(j, i).getColor() + " |";
+                    break;
+                case green:
+                    ret += "| " + getPawn(j, i).getColor() + " |";
+                    break;
+                case empty:
+                    ret += "| " + getPawn(j, i).getColor() + " |";
+                    break;
+                }
             }
 
             ret += "|";
@@ -151,18 +166,16 @@ public class Game {
         Pawn pawn = getPawn(_i, _j);
 
         if (pawn.isEmpty()) {
-            pawn.setOwner(current.getNumber());
+            pawn.setColor(current.getColor());
             nextPlayer();
         }
     }
 
     public void nextPlayer() {
-        int nbPlayers = 2;
-
-        if (current.getNumber() == nbPlayers) {
+        if (current == player[1]) {
             current = player[0];
         } else
-            current = player[current.getNumber() + 1];
+            current = player[1];
     }
 
     /**
@@ -171,9 +184,7 @@ public class Game {
     public static void main(String[] args) {
         System.out.println("Test of Game Class");
 
-        Options opt = new Options();
-
-        Game test = new Game(opt);
+        Game test = new Game();
 
         System.out.println(test.toString());
 

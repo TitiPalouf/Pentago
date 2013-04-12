@@ -32,7 +32,7 @@ public class Core {
 
 		options = new Options();
 
-		game = new Game(options);
+		game = new Game();
 	}
 
 	/**
