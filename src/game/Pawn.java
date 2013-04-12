@@ -1,23 +1,28 @@
 package game;
 
+import consoleui.ConsoleUI;
+
 /**
- * Pawn Class, contains just the value of the Pawn
+ * Pawn Class, contains just the color of the Pawn
  * 
- * @author Someone
+ * @author Soinou
  */
 public class Pawn {
     /**
-     * Owner of the Pawn ( -1 : No Owner; 0~n : Player n°0~n )
+     * Color of the Pawn ( defined in Color enum )
+     * @see Color
      */
     protected Color color;
     
     /**
-     * Pawn Constructor, initialize the owner to 0
+     * Pawn Constructor, initialize the color to the color given
+     * @param _color Color to put in the Pawn
+     * @see Color
      */
     public Pawn(Color _color) {
         color = _color;
     }    
-
+    
     /**
      * Get Owner of the Pawn
      * 
@@ -26,7 +31,7 @@ public class Pawn {
     public Color getColor() {
         return color;
     }
-
+    
     /**
      * Set Owner of the Pawn
      * 
@@ -36,29 +41,34 @@ public class Pawn {
     public void setColor(Color _color) {
         color = _color;
     }
-
+    
     /**
-     * @return
+     * Method to check if the Pawn is empty.
+     * @return A Boolean ( True if the pawn is empty, false if it's not )
      */
     public boolean isEmpty() {
         return color == Color.empty;
     }
-
+    
     /**
      * Test of Pawn Class
      */
-    public static void main(String[] args) {
-        System.out.println("Test of Pawn Class");
-
+    public static void main(String[] args) {        
+        ConsoleUI.print(">> Test of Pawn Class <<");
+        
+        ConsoleUI.print(">> We create a new empty Pawn <<");
         Pawn test = new Pawn(Color.empty);
-
-        System.out.println(test.getColor());
         
-        System.out.println("Set this pawn to blue");
+        ConsoleUI.print(">> We check its color <<");
+        ConsoleUI.print(test.getColor());
         
+        ConsoleUI.print(">> We set this pawn to blue <<");
+        
+        ConsoleUI.print(">> We set its color to blue <<");
         test.setColor(Color.blue);
-
-        System.out.println(test.getColor());
+        
+        ConsoleUI.print(">> We check its color now <<");
+        ConsoleUI.print(test.getColor());
     }
-
+    
 }

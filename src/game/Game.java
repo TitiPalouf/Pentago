@@ -1,196 +1,152 @@
 package game;
 
-import core.Options;
+import consoleui.ConsoleUI;
 
 /**
  * Game Class, contains Game Elements, such as Zone, and Players
  * 
  */
 public class Game {
-
+    
     /**
      * Zone, contains the Fields and the Pawns.
+     * 
+     * @see Zone
      */
     protected Zone zone = null;
-
+    
     /**
      * Array of Players, contains the Players.
+     * 
+     * @see Player
      */
     protected Player[] player = null;
-
+    
     /**
      * Current Player, contains a reference to the current Player
+     * 
+     * @see Player
      */
     protected Player current = null;
-
+    
     /**
      * Constructor of Game Class. Do the following :
      * <ul>
      * <li>Initialize the Zone.</li>
      * <li>Initialize the Players.</li>
-     * </ul>
-     * 
-     * @param options
-     *            Options of the Game, to initialize members with right numbers.
+     * </ul> 
      */
     public Game() {
         zone = new Zone();
-
+        
         player = new Player[2];
-
+        
         player[0] = new Player(Color.red);
         
         player[1] = new Player(Color.blue);
-
-        current = player[0];
+        
+        setCurrent(player[0]);
     }
-
+    
+    /**
+     * Clear method, used to clear the whole zone by putting all pawns to empty.
+     * 
+     * Will be used when the game will be playable again, to avoid destroying and reconstructing all objects.
+     * 
+     * call clear() of Zone Class
+     * 
+     * @see Zone
+     */
     public void clear() {
         zone.clear();
     }
-
-    public Pawn getPawn(int _i, int _j) {
-        return zone.getField(_i, _j).getPawn(_i, _j);
+    
+    /**
+     * Method to get the Pawn at the specified location
+     * @param _x X position of the Pawn
+     * @param _y Y Position of the Pawn
+     * @return A Pawn
+     * @see Pawn
+     */
+    public Pawn getPawn(int _x, int _y) {
+        return zone.getField(_x, _y).getPawn(_x, _y);
     }
-
-    @Override
-    public String toString() {
-
-        int nbPawns = 3;
-        int nbFields = 2;
-        int maxPawns = 6;
-        String ret = new String();
-
-        ret += "Current Player : " + current.getName() + System.lineSeparator();
-
-        ret += "Player Color : " + current.getColor();
-
-        ret += System.lineSeparator();
-
-        ret += "               ";
-
-        for (int i = 0; i < maxPawns; i++) {
-            if (i % nbPawns == 0 && i != 0)
-                ret += "  ";
-
-            if (i < 10)
-                ret += "Col   " + i + "  ";
-            else if (i < 100)
-                ret += "Col  " + i + "  ";
-            else
-                ret += "Col " + i + "  ";
-        }
-
-        ret += System.lineSeparator();
-
-        ret += "             ";
-
-        for (int i = 0; i < nbFields; i++) {
-            for (int j = 0; j < nbPawns; j++) {
-                ret += "---------";
-            }
-            if (i != nbFields - 1)
-                ret += "-  -";
-        }
-
-        ret += System.lineSeparator();
-
-        for (int i = 0; i < maxPawns; i++) {
-            if (i < 10)
-                ret += "Line   " + i + " : ";
-            else if (i < 100)
-                ret += "Line  " + i + " : ";
-            else
-                ret += "Line " + i + " : ";
-
-            ret += "  |";
-
-            for (int j = 0; j < maxPawns; j++) {
-                if (j % nbPawns == 0 && j != 0)
-                    ret += "  ";
-
-                switch (getPawn(j, i).getColor()) {
-                case red:
-                    ret += "|  " + getPawn(j, i).getColor() + "  |";
-                    break;
-                case blue:
-                    ret += "|  " + getPawn(j, i).getColor() + " |";
-                    break;
-                case green:
-                    ret += "| " + getPawn(j, i).getColor() + " |";
-                    break;
-                case empty:
-                    ret += "| " + getPawn(j, i).getColor() + " |";
-                    break;
-                }
-            }
-
-            ret += "|";
-
-            ret += System.lineSeparator();
-
-            ret += "             ";
-
-            for (int k = 0; k < nbFields; k++) {
-                for (int l = 0; l < nbPawns; l++) {
-                    ret += "---------";
-                }
-                if (k != nbFields - 1)
-                    ret += "-  -";
-            }
-
-            ret += System.lineSeparator();
-
-            if ((i + 1) % nbPawns == 0 && i != 0 && i != maxPawns - 1) {
-                ret += System.lineSeparator();
-
-                ret += "             ";
-
-                for (int k = 0; k < nbFields; k++) {
-                    for (int l = 0; l < nbPawns; l++) {
-                        ret += "---------";
-                    }
-                    if (k != nbFields - 1)
-                        ret += "-  -";
-                }
-                ret += System.lineSeparator();
-            }
-        }
-
-        ret += System.lineSeparator();
-
-        return ret;
+    
+    /**
+     * Method to get the field at the specified location.
+     * @param _x X position of the field
+     * @param _y Y position of the field
+     * @return A Field
+     * @see Field
+     */
+    public Field getField(int _x, int _y) {
+        return zone.getField(_x, _y);
     }
-
-    void play(int _i, int _j) {
-        Pawn pawn = getPawn(_i, _j);
-
+    
+    /**
+     * Method to get the current Player
+     * @return A Player
+     * @see Player
+     */
+    public Player getCurrent() {
+        return current;
+    }
+    
+    /**
+     * Method to set the current player.
+     * Used mainly by the nextPlayer method.
+     * @param _current A Reference to the player that should be the current player.
+     */
+    private void setCurrent(Player _current) {
+        current = _current;
+    }
+    
+    
+    /**
+     * Method to play the pawn at the specified location.
+     * @param _x X position of the pawn
+     * @param _y Y position of the pawn
+     */
+    public void playPawn(int _x, int _y) {
+        Pawn pawn = getPawn(_x, _y);
+        
         if (pawn.isEmpty()) {
-            pawn.setColor(current.getColor());
+            pawn.setColor(getCurrent().getColor());
             nextPlayer();
         }
     }
-
-    public void nextPlayer() {
-        if (current == player[1]) {
-            current = player[0];
-        } else
-            current = player[1];
-    }
-
+    
     /**
-     * Unitary Test of Game Class
+     * Method to "Search what to put here"
+     */
+    public void nextPlayer() {
+        if (getCurrent() == player[1]) {
+            setCurrent(player[0]);
+        } else
+            setCurrent(player[1]);
+    }
+    
+    /**
+     * Test of Game Class, and a little use of the ConsoleUI Class to print it.
      */
     public static void main(String[] args) {
-        System.out.println("Test of Game Class");
-
+        ConsoleUI.print(">> Test of Game Class <<");
+        
+        ConsoleUI.print(">> We create a new Game <<");
+        
         Game test = new Game();
-
-        System.out.println(test.toString());
-
-        test.play(5, 3);
-
-        System.out.println(test.toString());
+        
+        ConsoleUI.print(">> We draw it with the draw() method of the ConsoleUI class <<");
+        
+        ConsoleUI.draw(test);
+        
+        ConsoleUI.print(">> We play the pawn at the location 5,3 <<");
+        
+        test.playPawn(5, 3);
+        
+        ConsoleUI.print(">> We redraw the game <<");
+        
+        ConsoleUI.draw(test);
     }
-
+    
 }
