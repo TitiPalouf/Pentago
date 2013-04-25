@@ -14,6 +14,16 @@ public class Field {
     /**
      * 
      */
+    public Field(Options options) {
+        int nbrPawns = options.getNbPawns();
+        pawn = new Pawn[nbrPawns][nbrPawns];
+        clear();
+    }
+    
+    
+    /**
+     * 
+     */
     public Field() {
         
         pawn = new Pawn[3][3];
