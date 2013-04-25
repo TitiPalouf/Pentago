@@ -1,4 +1,3 @@
-
 package game;
 
 /**
@@ -21,6 +20,9 @@ public class Field {
         clear();
     }
     
+    /**
+     * Clear the current Field
+     */
     public void clear() {
         
         for (int i = 0; i < 3; i++)
@@ -31,7 +33,7 @@ public class Field {
     /**
      * @param _i
      * @param _j
-     * @return
+     * @return The pawn what else?
      */
     public Pawn getPawn(int _i, int _j) {
         
@@ -39,16 +41,16 @@ public class Field {
     }
     
     /**
+     * Do a barrel roll on this field
      * @param dir
+     *      The direction of the barrel roll
      */
     public void barrelRoll(Direction dir) {
         
-        Pawn tmpPawn;
+        Pawn tmpPawn = pawn[0][0];
         
         switch (dir) {
             case right:
-                tmpPawn = pawn[0][0];
-                
                 pawn[0][0] = pawn[0][2];
                 pawn[0][2] = pawn[2][2];
                 pawn[2][2] = pawn[2][0];
@@ -64,8 +66,6 @@ public class Field {
                 pawn[2][1] = tmpPawn;
                 break;
             case left:
-                tmpPawn = pawn[0][0];
-                
                 pawn[0][0] = pawn[2][0];
                 pawn[2][0] = pawn[2][2];
                 pawn[2][2] = pawn[0][2];
@@ -82,6 +82,7 @@ public class Field {
                 break;
             default:
                 throw new MyException("Haha lol");
+                break;
         }
     }
     
@@ -90,13 +91,9 @@ public class Field {
      */
     public static void main(String[] args) {
         
-        System.out.println(">> Test of Field Class");
+        System.out.println(">> Test of Field Class\n");
         
-        System.out.println("");
-        
-        System.out.println(">> We create a new Field");
-        
-        System.out.println("");
+        System.out.println(">> We create a new Field\n");
         
         Field test = new Field();
         
@@ -112,11 +109,7 @@ public class Field {
             System.out.println("");
         }
         
-        System.out.println("");
-        
-        System.out.println(">> BarrelRoll to the right of the Field");
-        
-        System.out.println("");
+        System.out.println("\n>> BarrelRoll to the right of the Field\n");
         
         test.barrelRoll(Direction.right);
         
